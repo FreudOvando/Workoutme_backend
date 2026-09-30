@@ -12,6 +12,7 @@ public class ScoreMapper {
                 score.getId(),
                 score.getUser().getId(),
                 score.getUser().getFirstName() + " " + score.getUser().getLastName(),
+                score.getUser().getPhotoUrl(),
                 score.getWod().getId(),
                 score.getWod().getName() != null ? score.getWod().getName() : "WOD del día",
                 score.isCompleted(),

@@ -6,6 +6,7 @@ public record ScoreResponse(
         Long id,
         Long userId,
         String userFullName,
+        String photoUrl,
         Long wodId,
         String wodName,
         boolean completed,

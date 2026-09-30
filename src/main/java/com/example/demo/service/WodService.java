@@ -5,6 +5,7 @@ import com.example.demo.dto.WodResponse;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.mapper.WodMapper;
 import com.example.demo.model.Wod;
+import com.example.demo.repository.ScoreRepository;
 import com.example.demo.repository.WodRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,10 +16,13 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
+
 public class WodService {
 
     private final WodRepository wodRepository;
     private final WodMapper wodMapper;
+    private final ScoreRepository scoreRepository;
 
     @Transactional(readOnly = true)
     public List<WodResponse> findAll() {
@@ -27,6 +31,7 @@ public class WodService {
                 .map(wodMapper::toResponse)
                 .toList();
     }
+
 
     @Transactional(readOnly = true)
     public WodResponse findById(Long id) {
@@ -46,11 +51,12 @@ public class WodService {
         return wodMapper.toResponse(wodRepository.save(wod));
     }
 
-    @Transactional
     public void delete(Long id) {
         Wod wod = getWodOrThrow(id);
+        scoreRepository.deleteAllByWodId(id);
         wodRepository.delete(wod);
     }
+
 
     private Wod getWodOrThrow(Long id) {
         return wodRepository.findById(id)

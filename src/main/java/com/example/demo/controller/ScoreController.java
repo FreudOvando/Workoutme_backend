@@ -19,7 +19,7 @@ public class ScoreController {
     private final ScoreService scoreService;
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN') or #request.userId() == authentication.principal.id")
+    @PreAuthorize("hasRole(isAuthenticated()) or #request.userId() == authentication.principal.id")
     public ScoreResponse saveOrUpdate(@Valid @RequestBody ScoreRequest request) {
         return scoreService.saveOrUpdate(request);
     }
