@@ -31,3 +31,19 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+# Variables de entorno y secretos
+.env
+.env.local
+*.env
+
+# Archivos de configuración con credenciales locales
+application-local.properties
+application-local.yml
+
+# Carpetas de construcción / dependencias (por seguridad)
+/target/            # Para Java / Maven
+/build/             # Para Java / Gradle
+/node_modules/      # Para React / Node
+/dist/              # Para React / Build
