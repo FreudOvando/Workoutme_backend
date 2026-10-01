@@ -56,6 +56,11 @@ public class GlobalExceptionHandler {
         return build(HttpStatus.UNAUTHORIZED, ex.getMessage(), null);
     }
 
+    @ExceptionHandler(EnrollmentAlreadyExistsException.class)
+    public ResponseEntity<ApiError> handleEnrollmentExists(EnrollmentAlreadyExistsException ex) {
+        return build(HttpStatus.CONFLICT, ex.getMessage(), null);
+    }
+
     // Red de seguridad: no exponemos detalles internos al cliente
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiError> handleUnexpected(Exception ex) {
