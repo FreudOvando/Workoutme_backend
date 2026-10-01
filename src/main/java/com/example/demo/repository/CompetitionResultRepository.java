@@ -10,6 +10,16 @@ import java.util.Optional;
 @Repository
 public interface CompetitionResultRepository extends JpaRepository<CompetitionResult, Long> {
     List<CompetitionResult> findAllByStage_CompetitionId(Long competitionId);
+
     Optional<CompetitionResult> findByStageIdAndEnrollmentId(Long stageId, Long enrollmentId);
+
+    void deleteAllByStageId(Long stageId);
+
+    void deleteAllByStage_CompetitionId(Long competitionId);
+
+
 }
+
+
+
 

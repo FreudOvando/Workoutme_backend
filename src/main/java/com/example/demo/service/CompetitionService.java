@@ -5,19 +5,25 @@ import com.example.demo.dto.CompetitionResponse;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.mapper.CompetitionMapper;
 import com.example.demo.model.Competition;
+import com.example.demo.repository.CompetitionEnrollmentRepository;
 import com.example.demo.repository.CompetitionRepository;
+import com.example.demo.repository.CompetitionResultRepository;
+import com.example.demo.repository.CompetitionStageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class CompetitionService {
 
+
     private final CompetitionRepository competitionRepository;
     private final CompetitionMapper competitionMapper;
+    private final CompetitionStageRepository stageRepository;
+    private final CompetitionEnrollmentRepository enrollmentRepository;
+    private final CompetitionResultRepository resultRepository;
 
     @Transactional(readOnly = true)
     public List<CompetitionResponse> findAll() {
@@ -52,8 +58,12 @@ public class CompetitionService {
     @Transactional
     public void delete(Long id) {
         Competition competition = getCompetitionOrThrow(id);
+        resultRepository.deleteAllByStage_CompetitionId(id);
+        enrollmentRepository.deleteAllByCompetitionId(id);
+        stageRepository.deleteAllByCompetitionId(id);
         competitionRepository.delete(competition);
     }
+
 
     Competition getCompetitionOrThrow(Long id) {
         return competitionRepository.findById(id)

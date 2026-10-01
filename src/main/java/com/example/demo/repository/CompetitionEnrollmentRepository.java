@@ -12,5 +12,6 @@ public interface CompetitionEnrollmentRepository extends JpaRepository<Competiti
     List<CompetitionEnrollment> findAllByCompetitionId(Long competitionId);
     Optional<CompetitionEnrollment> findByCompetitionIdAndUserId(Long competitionId, Long userId);
     boolean existsByCompetitionIdAndUserId(Long competitionId, Long userId);
+    void deleteAllByCompetitionId(Long competitionId);
 }
 

@@ -8,6 +8,9 @@ import java.util.List;
 
 @Repository
 public interface CompetitionStageRepository extends JpaRepository<CompetitionStage, Long> {
+
     List<CompetitionStage> findAllByCompetitionIdOrderByStageOrderAsc(Long competitionId);
+
+    void deleteAllByCompetitionId(Long competitionId);
 }
 
