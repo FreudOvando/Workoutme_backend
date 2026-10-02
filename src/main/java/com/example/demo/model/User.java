@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import java.math.BigDecimal;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -56,4 +57,8 @@ public class User {
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
+
+    // Monto de la mensualidad. null = el admin todavía no lo configuró.
+    @Column(name = "monthly_fee", precision = 10, scale = 2)
+    private BigDecimal monthlyFee;
 }

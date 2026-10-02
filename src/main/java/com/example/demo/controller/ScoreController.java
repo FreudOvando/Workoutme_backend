@@ -31,7 +31,6 @@ public class ScoreController {
     }
 
     @GetMapping("/wod/{wodId}")
-    @PreAuthorize("hasRole('ADMIN')")
     public List<ScoreResponse> findAllByWod(@PathVariable Long wodId) {
         return scoreService.findAllByWod(wodId);
     }
